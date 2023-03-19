@@ -751,7 +751,7 @@ if __name__ == "__main__":
 
 <img width="348" alt="image" src="https://user-images.githubusercontent.com/87903303/226155273-e82d7f75-78d7-4af3-a7b0-166bdbc8a703.png">
 
-現実で、他の人が作ったスクリプトをこんな他の味方されたらやりたくなくなりますよね。
+現実で、他の人が作ったスクリプトをこんな頼み方をされたらやりたくなくなりますよね。
 
 ---
 
@@ -965,6 +965,12 @@ app.mainloop()
 
 ---
 
+<img width="858" alt="image" src="https://user-images.githubusercontent.com/87903303/226156085-9c254af7-5cef-432a-82f9-1a90b7f903e9.png">
+
+なぜか動きませんでした。その理由も聞いてみることにしました。
+
+---
+
 15. 下記のようなエラーが発生しました。何が原因でしょうか。
 
 ```
@@ -994,6 +1000,16 @@ import csv
 ```
 
 この変更により、filedialogが正しくインポートされ、asksaveasfilename関数を使用できるようになります。
+
+---
+
+<img width="877" alt="image" src="https://user-images.githubusercontent.com/87903303/226156156-cd75b5f1-5788-4525-86c8-b3aadc22e07f.png">
+
+はい、人為ミスです。それでも私を責めないのですね。なんと心優しい。
+
+自分の非は認めましょう。
+
+その代わりわがままを言わせてください。ファイル名を指定するのが面倒です。
 
 ---
 

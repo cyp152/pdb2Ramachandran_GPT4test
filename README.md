@@ -525,8 +525,6 @@ Error: 'mmCIF'
 
 すみませんが、このエラーメッセージだけでは問題の原因を特定するのが難しいです。しかし、一般的な問題に対処するために、以下の提案を試してください。
 
----
-
 pdb_list.retrieve_pdb_file()を使って、ファイル形式がPDBかmmCIFかに関係なく、ファイルをダウンロードできるようにしてみましょう。具体的には、pdb_list.retrieve_pdb_file(pdb_id, pdir=".", file_format=file_format)の呼び出しをpdb_list.retrieve_pdb_file(pdb_id, pdir=".")に変更します。
 
 次に、ファイル形式がPDBかmmCIFかを自動的に判断するようにします。これは、ファイル名の拡張子を確認することで実現できます。

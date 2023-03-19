@@ -1584,3 +1584,8 @@ def plot_scatter(phi_psi_data):
 
 なお、180が表示されない問題は解決していないのと、CSVの値も小数点2桁に丸められていない、ヒートマップが表示できていない等の問題はあったが、聞き続けていたら解決してくれそうな気はする。今後に期待。
 
+※ChatGPTは悪くありませんでした。私の人為的なミスでplot_scatter 関数を消し忘れて2回定義しておりました。
+23回目の質問時点でこうなるはずでした。
+
+<img width="469" alt="image" src="https://user-images.githubusercontent.com/87903303/226163505-ed3e9431-797d-4505-9bee-82373c10d76a.png"> 
+

@@ -227,8 +227,7 @@ if __name__ == "__main__":
 
 ---
 
-<img width="246" alt="image" src="https://user-images.githubusercontent.com/87903303/226153638-7a289609-a3bf-4ba1-8bcc-226f56cb12c4.png">
-<img width="246" alt="image" src="https://user-images.githubusercontent.com/87903303/226154762-b0ac60b8-b55f-46ae-bc99-37396bd751e7.png">
+<img width="246" alt="image" src="https://user-images.githubusercontent.com/87903303/226153638-7a289609-a3bf-4ba1-8bcc-226f56cb12c4.png"> → <img width="246" alt="image" src="https://user-images.githubusercontent.com/87903303/226154762-b0ac60b8-b55f-46ae-bc99-37396bd751e7.png">
 
 無事ラジアンから°に変換されました。
 

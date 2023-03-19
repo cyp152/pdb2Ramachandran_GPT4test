@@ -837,7 +837,9 @@ app.mainloop()
 
 最初のGUIはfetch_pdbが定義されていないと怒られました。これはChatGPT4が以前のコードを省略してしまっており、
 
+```
 # ここに、以前に提供したfetch_pdb、extract_phi_psi、およびwrite_to_csv関数を含めます。
+```
 
 と、出力の中に書いてあるので、さすがにこれは配慮してあげないといけないです。
 
@@ -847,7 +849,9 @@ app.mainloop()
 
 <img width="845" alt="image" src="https://user-images.githubusercontent.com/87903303/226155606-86fb4c37-e532-4fa2-bb4b-8862f5431468.png">
 
-無事動きました。
+無事動きました。csvとして保存する機能がなくなってしまったので追加するのと、
+
+テキストボックスにスクロールバーがないと確認しにくいなと思ったので次の質問をしました。
 
 ---
 

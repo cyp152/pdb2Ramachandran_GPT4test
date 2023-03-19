@@ -7,9 +7,7 @@ pythonスクリプトを作成できるか試した実行記録です。
 
 --
 
-<img src="https://user-images.githubusercontent.com/87903303/226152460-1a22e58e-d9dc-47dc-9eb1-82972e9ae910.png width="5%" />
-															  
-PDBIDとchain番号を入力すると、1残基ずつタンパク質構造中のアミノ酸残基1文字表記と主鎖二面角φとψをcsv形式で出力するpythonスクリプトを作成してください。
+1. PDBIDとchain番号を入力すると、1残基ずつタンパク質構造中のアミノ酸残基1文字表記と主鎖二面角φとψをcsv形式で出力するpythonスクリプトを作成してください。
 
 --
 

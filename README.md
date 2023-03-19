@@ -318,8 +318,6 @@ res_name = residue.get_resname().upper()
 
 6. pdbのファイル形式は問題が発生しませんでしたが、cifでは下記のようなエラーが出ました。改善策を教えてください。
 
----
-
 ```
 Enter PDB ID: 5yhj
 Enter chain ID: B
@@ -338,6 +336,8 @@ Enter chain ID: B
 Enter file format (pdb or cif): cif
 Error: MMCIFParser.__init__() got an unexpected keyword argument 'PERMISSIVE'
 ```
+
+---
 
 このエラーは、MMCIFParserの__init__()関数に、予期しないキーワード引数PERMISSIVEが渡されているために発生しています。PDBParserにはPERMISSIVEという引数がありますが、MMCIFParserには存在しないため、このエラーが発生しています。
 
@@ -409,6 +409,7 @@ if __name__ == "__main__":
         print(f"Error: {str(e)}")
 ```
 
+この修正後のスクリプトでは、MMCIFParser
 
 ---
 
@@ -423,8 +424,7 @@ Error: 'cif'
 
 エラーが発生する原因は、fetch_pdb()関数がfile_formatを正しく解釈できていないためです。retrieve_pdb_file()関数のfile_format引数には、"pdb"または"mmCIF"を使用する必要があります。以下に修正後のスクリプトを示します。
 
---
-
+```
 import sys
 import csv
 import math
@@ -490,24 +490,26 @@ if __name__ == "__main__":
         print(f"Phi-Psi angles written to {output_filename}")
     except Exception as e:
         print(f"Error: {str(e)}")
- 
---
+```
 
 この修正後のスクリプトでは、fetch_pdb()関数でfile_formatを"mmCIF"に変更しています。これで、PDBx/mmCIF形式のファイルを正
 
---
+---
 
-下記のようなエラーが出ました解決策が分かれば教えてください。
+8. 下記のようなエラーが出ました解決策が分かれば教えてください。
+
+```
 Enter PDB ID: 5yhj
 Enter chain ID: B
 Enter file format (pdb or cif): cif
 Error: 'mmCIF'
+```
 
---
+---
 
 すみませんが、このエラーメッセージだけでは問題の原因を特定するのが難しいです。しかし、一般的な問題に対処するために、以下の提案を試してください。
 
---
+---
 
 pdb_list.retrieve_pdb_file()を使って、ファイル形式がPDBかmmCIFかに関係なく、ファイルをダウンロードできるようにしてみましょう。具体的には、pdb_list.retrieve_pdb_file(pdb_id, pdir=".", file_format=file_format)の呼び出しをpdb_list.retrieve_pdb_file(pdb_id, pdir=".")に変更します。
 
@@ -515,8 +517,7 @@ pdb_list.retrieve_pdb_file()を使って、ファイル形式がPDBかmmCIFか�
 
 以下に修正後のコードを示します。
 
---
-
+```
 import sys
 import csv
 import math
@@ -574,18 +575,18 @@ if __name__ == "__main__":
     pdb_id = input("Enter PDB ID: ")
     chain_id = input("Enter chain ID: ")
     output_filename = f
+```
 （※上限）
 
---
+---
 
-if __name__ == "__main__":以降を再度記述してください。
+9. if __name__ == "__main__":以降を再度記述してください。
 
---
+---
 
 すみません、コードが途中で切れてしまいました。以下に、if __name__ == "__main__":以降のコードを再度記述します。
 
---
-
+```
 if __name__ == "__main__":
     pdb_id = input("Enter PDB ID: ")
     chain_id = input("Enter chain ID: ")
@@ -598,20 +599,22 @@ if __name__ == "__main__":
         print(f"Phi-Psi angles written to {output_filename}")
     except Exception as e:
         print(f"Error: {str(e)}")
-        
---
+```
 
 この修正後のスクリプトでは、fetch_pdb()関数はPDB IDを引数にとり、ファイル形式に関係なくファイルをダウンロードします。その後、extract_phi_psi()関数はファイル名の拡張子を確認し、適切なパーサを使用して構造データを解析します。
 
---
+---
 
-ありがとうございました。ちなみにこの警告が発生しないような改善策はありますか？
+10. ありがとうございました。ちなみにこの警告が発生しないような改善策はありますか？
+
+```
 Warning (from warnings module):
   File "C:\Users\xxxxx\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\Bio\PDB\Polypeptide.py", line 144
     warnings.warn(
 BiopythonDeprecationWarning: 'three_to_one' will be deprecated in a future release of Biopython in favor of 'Bio.PDB.Polypeptide.protein_letters_3to1'.
+```
 
---
+---
 
 警告は、将来のBiopythonリリースでthree_to_one関数が非推奨になり、代わりにBio.PDB.Polypeptide.protein_letters_3to1が推奨されることを示しています。警告を解消するには、three_to_oneの代わりにprotein_letters_3to1を使うようにコードを変更します。以下に修正後のコードを示します。
 
@@ -621,8 +624,7 @@ from Bio.PDB.Polypeptide import PPBuilder, three_to_one を from Bio.PDB.Polypep
 res_name_1 = three_to_one(res_name) を res_name_1 = protein_letters_3to1[res_name] に変更
 修正後のコード：
 
---
-
+```
 import sys
 import csv
 import math
@@ -684,18 +686,18 @@ if __name__ == "__main__":
     try:
         filename = fetch_pdb(pdb_id)
         phi_psi_data = extract_phi_psi(pdb_id
+```
 （※文字数上限）
 
---
+---
 
-if __name__ == "__main__":以降を記載してください。
+11. if __name__ == "__main__":以降を記載してください。
 
---
+---
 
 すみません、再度コードが切れてしまいました。if __name__ == "__main__":以降を記載します。
 
---
-
+```
 if __name__ == "__main__":
     pdb_id = input("Enter PDB ID: ")
     chain_id = input("Enter chain ID: ")
@@ -708,20 +710,19 @@ if __name__ == "__main__":
         print(f"Phi-Psi angles written to {output_filename}")
     except Exception as e:
         print(f"Error: {str(e)}")
---
+```
 
 この修正後のスクリプトでは、非推奨のthree_to_one関数の代わりに、protein_letters_3to1辞書を使用しています。これにより、警告が解消されるはずです。
 
---
+---
 
-pdb_idとchain_idをテキストボックスで受け取り、下のテキストボックスにPDB形式の出力を表示し、右のテキストボックスにタンパク質構造中のアミノ酸残基の1文字表記と主鎖二面角φ(Phi)とψ(Psi)をCSV形式で表示するGUIを作成してください。
+12. pdb_idとchain_idをテキストボックスで受け取り、下のテキストボックスにPDB形式の出力を表示し、右のテキストボックスにタンパク質構造中のアミノ酸残基の1文字表記と主鎖二面角φ(Phi)とψ(Psi)をCSV形式で表示するGUIを作成してください。
 
---
+---
 
 PythonのTkinterを使って、指定された機能を持つGUIアプリケーションを作成できます。以下に、コードを示します。
 
---
-
+```
 import tkinter as tk
 from tkinter import ttk
 from io import StringIO
@@ -786,21 +787,19 @@ app.columnconfigure(1, weight=1)
 app.rowconfigure(1, weight=1)
 
 app.mainloop()
-
---
+```
 
 このコードは、Tkinterを使用して、PDB IDとチェーンIDを入力できるテキストボックス、アナライズボタン、および2つのテキストボックス（1つはPDB形式の出力を表示し、もう1つはCSV形式でφとψの角度を表示）で構成されたGUIを作成します。アナライズボタンをクリックすると、以前に提
 
---
+---
 
-PDB形式の出力とCSV形式でφとψの角度を表示するテキストボックスにスクロールバーを追加してください。また、φとψの角度を表示するテキストボックスの下にcsvファイルを保存するボタンを作成してください。
+13. PDB形式の出力とCSV形式でφとψの角度を表示するテキストボックスにスクロールバーを追加してください。また、φとψの角度を表示するテキストボックスの下にcsvファイルを保存するボタンを作成してください。
 
---
+---
 
 以下に、指定された変更を加えたコードを示します。
 
---
-
+```
 import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog
@@ -877,17 +876,17 @@ error_label.grid(row=2, column=0, columnspan=2, pady=10)
 
 save_button = ttk.Button(app, text="Save CSV", command=save_csv)
 save_button.grid(row=2
+```
 
---
+---
 
-save_button = ttk.Button(app, text="Save CSV", command=save_csv)以降を記載してください。
+14. save_button = ttk.Button(app, text="Save CSV", command=save_csv)以降を記載してください。
 
---
+---
 
 申し訳ありません。コードが途中で切れてしまいました。save_button = ttk.Button(app, text="Save CSV", command=save_csv)以降を記載します。
 
---
-
+```
 save_button = ttk.Button(app, text="Save CSV", command=save_csv)
 save_button.grid(row=2, column=2, pady=10)
 
@@ -898,14 +897,15 @@ app.columnconfigure(3, weight=0)
 app.rowconfigure(1, weight=1)
 
 app.mainloop()
-
---
+```
 
 このコードは、save_buttonをアプリケーションの下部に表示し、CSV形式のφとψの角度データを保存するために使用できます。また、pdb_textとcsv_textのテキストボックスにスクロールバーが追加されています。
 
---
+---
 
-下記のようなエラーが発生しました。何が原因でしょうか。
+15. 下記のようなエラーが発生しました。何が原因でしょうか。
+
+```
 Exception in Tkinter callback
 Traceback (most recent call last):
   File "C:\Program Files\WindowsApps\PythonSoftwareFoundation.Python.3.10_3.10.2800.0_x64__qbz5n2kfra8p0\lib\tkinter\__init__.py", line 1921, in __call__
@@ -913,13 +913,13 @@ Traceback (most recent call last):
   File "C:/Users/xxxxx/Desktop/rama6_GUI.py", line 82, in save_csv
     file_path = filedialog.asksaveasfilename(defaultextension=".csv")
 NameError: name 'filedialog' is not defined
+```
 
---
+---
 
 エラーメッセージによれば、filedialogモジュールが定義されていないため、問題が発生しています。tkinterからfiledialogをインポートするのを忘れていたようです。以下のようにfrom tkinter import filedialogをインポートセクションに追加してください。
 
---
-
+```
 import tkinter as tk
 from tkinter import ttk
 from tkinter import filedialog
@@ -929,21 +929,19 @@ import csv
 # 以前に提供したfetch_pdb、extract_phi_psi、およびwrite_to_csv関数をここに含めます。
 
 # 以下のコードは変更なしで続けます。
-
---
+```
 
 この変更により、filedialogが正しくインポートされ、asksaveasfilename関数を使用できるようになります。
 
 --
 
-私がimportを追記するのを忘れていたようです。Save CSVボタンを押したときに、ファイルの種類をcsvに、標準のファイル名をpdb_id+"_"+chain_idにすることは可能でしょうか。
+16. 私がimportを追記するのを忘れていたようです。Save CSVボタンを押したときに、ファイルの種類をcsvに、標準のファイル名をpdb_id+"_"+chain_idにすることは可能でしょうか。
 
---
+---
 
 もちろん可能です。save_csv関数を以下のように変更して、ファイルの種類をCSVにし、標準のファイル名をpdb_idとchain_idを組み合わせたものにしてください。
 
---
-
+```
 def save_csv():
     pdb_id = pdb_id_entry.get()
     chain_id = chain_id_entry.get()
@@ -952,14 +950,13 @@ def save_csv():
     if file_path:
         with open(file_path, "w") as f:
             f.write(csv_text.get("1.0", tk.END))
-            
---
+```
 
 この変更により、Save CSVボタンを押すと、ファイルの種類がCSVに設定され、標準のファイル名がpdb_idとchain_idの組み合わせになります。
 
---
+---
 
-Excelで開くと行が飛んでしまいます。原因は何でしょうか。
+17. Excelで開くと行が飛んでしまいます。原因は何でしょうか。
 
 Residue	Residue_ID	Phi (degrees)	Psi (degrees)
 			
@@ -969,30 +966,27 @@ V	4	-98.86508471	137.5782105
 			
 I	5	-79.94903572	124.7772432
 
---
+---
 
 Excelで開いたときに行が飛んでいる原因は、CSVデータに改行コードが2つ連続して含まれているためです。CSVデータを生成するStringIOオブジェクトに書き込む際、csv_writerが各行の末尾に改行コードを自動的に追加します。したがって、csv_text.insert(tk.END, csv_output.getvalue())の代わりに、以下のように改行コードを削除してからテキストボックスに挿入することができます。
 
---
-
+```
         csv_text.delete('1.0', tk.END)
         csv_output_str = csv_output.getvalue().replace('\r\n', '\n').replace('\r', '\n')
         csv_text.insert(tk.END, csv_output_str)
-        
---
+```
 
 この変更により、CSVデータの改行コードが正しくなり、Excelで開いたときに行が飛ばなくなります。
 
---
+---
 
-Phi (degrees),Psi (degrees)のcsv出力時、小数点以下2桁で丸めることは可能でしょうか。また、右側にPhi (degrees),Psi (degrees)の散布図を表示することは可能でしょうか。
+18. Phi (degrees),Psi (degrees)のcsv出力時、小数点以下2桁で丸めることは可能でしょうか。また、右側にPhi (degrees),Psi (degrees)の散布図を表示することは可能でしょうか。
 
---
+---
 
 もちろん可能です。まず、PhiとPsiの角度を小数点以下2桁に丸めるために、write_to_csv関数を以下のように変更します。
 
---
-
+```
 def write_to_csv(phi_psi_data, csv_output):
     csv_writer = csv.writer(csv_output)
     csv_writer.writerow(["Residue", "Residue_ID", "Phi (degrees)", "Psi (degrees)"])
@@ -1003,13 +997,11 @@ def write_to_csv(phi_psi_data, csv_output):
         phi = round(residue_data[2], 2)  # 丸める
         psi = round(residue_data[3], 2)  # 丸める
         csv_writer.writerow([residue_name, residue_id, phi, psi])
-        
---
+```
 
 次に、散布図を表示するために、matplotlibをインポートし、新しい関数plot_scatterを作成します。
 
---
-
+```
 import matplotlib.pyplot as plt
 
 def plot_scatter(phi_psi_data):
@@ -1021,12 +1013,11 @@ def plot_scatter(phi_psi_data):
     plt.ylabel('Psi (degrees)')
     plt.title('Phi-Psi Scatter Plot')
     plt.show()
---
+```
 
 最後に、fetch_buttonが押されたときに、plot_scatter関数を呼び出すようにfetch_pdb関数を変更します。
 
---
-
+```
 def fetch_pdb():
     # 以前のコード
     phi_psi_data = extract_phi_psi(pdb_id, chain_id, structure)
@@ -1037,21 +1028,19 @@ def fetch_pdb():
     csv_text.insert(tk.END, csv_output_str)
     
     plot_scatter(phi_psi_data)  # これを追加
-
---
+```
 
 これで、PhiとPsiの角度が小数点以下2桁に丸められ、右側に散布図が表示されるようになります。ただし、散布図をTkinterウィンドウ内に埋め込む方法がありますが、ここでは簡単のために別ウィンドウに表示しています。
 
---
+---
 
-散布図をTkinterウィンドウで表示するボタンをSAVE CSVの隣に作成することは可能ですか？
+19. 散布図をTkinterウィンドウで表示するボタンをSAVE CSVの隣に作成することは可能ですか？
 
---
+---
 
 もちろん可能です。Tkinterウィンドウに散布図を表示するために、まずmatplotlibのFigureCanvasTkAggをインポートし、散布図を描画する関数を変更します。
 
---
-
+```
 from matplotlib.backends.backend_tkagg import FigureCanvasTkAgg
 
 def plot_scatter(phi_psi_data):
@@ -1065,13 +1054,11 @@ def plot_scatter(phi_psi_data):
     ax.set_title('Phi-Psi Scatter Plot')
 
     return fig
-    
---
+```
 
 次に、scatter_buttonを作成し、scatter_buttonが押されたときに散布図をTkinterウィンドウに表示する新しい関数show_scatterを作成します。
 
---
-
+```
 def show_scatter():
     phi_psi_data = extract_phi_psi(pdb_id, chain_id, structure)
     fig = plot_scatter(phi_psi_data)
@@ -1082,15 +1069,15 @@ def show_scatter():
 
 scatter_button = ttk.Button(app, text="Show Scatter Plot", command=show_scatter)
 scatter_button.grid(row=2, column=2, padx=(0, 10), pady=10)
-
---
+```
 
 これで、Tkinterウィンドウに'Show Scatter Plot'ボタンが表示され、ボタンを押すと散布図が表示されるようになります。散布図は、PDB形式の出力とCSV形式でφとψの角度を表示するテキストボックスの右側に表示されます。
 
 --
 
-現在のコードは下記の通りです。SAVE CSVボタンが消えてしまいました。また、Show Scatter Plotボタンを押しても別のTkinterウィンドウに散布図が表示されません。何を修正すればよいでしょうか。
+20. 現在のコードは下記の通りです。SAVE CSVボタンが消えてしまいました。また、Show Scatter Plotボタンを押しても別のTkinterウィンドウに散布図が表示されません。何を修正すればよいでしょうか。
 
+```
 import sys
 import csv
 import math
@@ -1277,8 +1264,9 @@ app.columnconfigure(3, weight=0)
 app.rowconfigure(1, weight=1)
 
 app.mainloop()
+```
 
---
+---
 
 save_buttonが消えてしまっているのは、scatter_buttonを配置する際に同じグリッド位置で上書きされているためです。また、show_scatter関数でpdb_idとchain_idが定義されていないため、散布図が表示されません。これらの問題を修正しましょう。
 
@@ -1288,8 +1276,7 @@ scatter_buttonのgrid()メソッドでcolumnを3に変更してください。
 show_scatter関数でpdb_idとchain_idを取得し、filenameをfetch_pdb()から取得します。
 修正後のコードは以下のようになります。
 
---
-
+```
 # ...
 
 # save_button のグリッドを修正
@@ -1313,23 +1300,21 @@ def show_scatter():
     scatter_canvas.get_tk_widget().grid(row=1, column=3, rowspan=2, padx=10, pady=10, sticky="nsew")
 
 # ...
-
---
+```
 
 これで、SAVE CSVボタンが表示され、Show Scatter Plotボタンを押すと散布図が表示されるはずです。
 
---
+---
 
-def show_scatter():関数の位置はどこが良いでしょうか。
+21. def show_scatter():関数の位置はどこが良いでしょうか。
 
---
+---
 
 show_scatter()関数は他の関数と同じレベルで定義されているため、現在の位置でも問題ありません。ただし、関数の順序に一貫性を持たせるために、他の関連する関数（例えばrun_analysis()）の近くに移動させることができます。これは主にコードの可読性を向上させるための変更です。
 
 以下のようにrun_analysis()の後にshow_scatter()を配置することができます。
 
---
-
+```
 # ...
 
 def run_analysis():
@@ -1342,23 +1327,23 @@ def save_csv():
     # save_csv のコード
 
 # ...
+```
 
 ただし、この変更はオプションであり、現在のshow_scatter()関数の位置でもコードは正常に機能します。関数の順序を変更するかどうかは、コードの整理と可読性に関連する個人的な選択です。
 
---
+---
 
 （個人的な選択！？ちがうChatGPTさんのスレッドだと違う感覚がでたりするのだろうか）
 
---
+---
 
-散布図のTkinterウィンドウをcsvを表示しているウィンドウと分けて別で表示したいです。何を変えればよいでしょうか。
+22. 散布図のTkinterウィンドウをcsvを表示しているウィンドウと分けて別で表示したいです。何を変えればよいでしょうか。
 
---
+---
 
 散布図を別のTkinterウィンドウに表示するには、新しいトップレベルウィンドウを作成し、その中にFigureCanvasTkAggウィジェットを配置します。以下のようにshow_scatter()関数を変更してください：
 
---
-
+```
 def show_scatter():
     phi_psi_data = extract_phi_psi(pdb_id_entry.get(), chain_id_entry.get(), fetch_pdb(pdb_id_entry.get()))
     fig = plot_scatter(phi_psi_data)
@@ -1370,21 +1355,20 @@ def show_scatter():
     scatter_canvas = FigureCanvasTkAgg(fig, master=scatter_window)
     scatter_canvas.draw()
     scatter_canvas.get_tk_widget().pack(fill=tk.BOTH, expand=True)
-    
---
+```
+
 この変更により、Show Scatter Plotボタンをクリックすると、新しいウィンドウが開き、その中に散布図が表示されます。
 
---
+---
 
-Phi-Psi Scatter Plotの最大値と最小値を180にしたいです。また、ヒートマップの上に散布図を表示することは可能でしょうか。
+23. Phi-Psi Scatter Plotの最大値と最小値を180にしたいです。また、ヒートマップの上に散布図を表示することは可能でしょうか。
 
---
+---
 
 
 plot_scatter関数を変更して、Phi-Psi Scatter Plotのx軸とy軸の最大値と最小値を-180から180に設定できます。そして、ヒートマップを表示してその上に散布図を重ねることもできます。以下は、plot_scatter関数の変更例です。
 
---
-
+```
 import numpy as np
 from scipy.stats import kde
 
@@ -1416,14 +1400,19 @@ def plot_scatter(phi_psi_data):
     ax.set_title('Phi-Psi Scatter Plot with Heatmap')
 
     return fig
-    
---
+```
 
 この変更により、散布図の背景にヒートマップが表示され、x軸とy軸の範囲が-180から180に設定されます。
 
---
+---
 
-（3時間上限）
+-3時間上限（Google検索とGPT4が紐づいており2回ロスしたと思われる）
+
+最大値と最小値を180にしたいという、
+
+-「肉の厚さは1.1ミリ。それ以上でもそれ以下でもダメなんです。」
+
+に通ずる誤記も意図を汲んで-180から180と読み取ってくれた。
 
 ※180が表示されないのは間隔の問題、丸められていない、ヒートマップが表示できていない等の問題はあるが、聞き続けていたら解決してくれそうな気はする。今後に期待。
 

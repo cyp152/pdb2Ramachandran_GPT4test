@@ -74,11 +74,13 @@ if __name__ == "__main__":
 ---
 
 2. このようなエラーが出ました。この問題を解決する改善策を教えてください。
+
+```
 Enter PDB ID: 5yhj
 Enter chain ID: B
 Structure exists: 'C:\Users\xxxxxxx\Desktop\yh\pdb5yhj.ent' 
 Error: argument of type 'function' is not iterable
-
+```
 
 ---
 

@@ -84,8 +84,6 @@ Error: argument of type 'function' is not iterable
 
 すみません、この問題は、if res_name in PDB.Polypeptide.three_to_one行に原因があります。PDB.Polypeptide.three_to_one は関数ですが、ここではリストやセットとして扱われています。これを修正するには、PDB.Polypeptide.three_to_one を PDB.Polypeptide.aa3 に置き換えて、アミノ酸名が有効かどうかを確認します。
 
----
-
 修正後のコードは以下のようになります。
 
 ```

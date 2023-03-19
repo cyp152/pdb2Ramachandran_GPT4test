@@ -2,8 +2,9 @@
 
 2023年3月9日にPythonのライトユーザーがChatGPT4にお願いして
 pythonスクリプトを作成できるか試した実行記録です。
-以下、やり取りをそのままコピペしました。
+以下、やり取りをそのままコピペしました。気が向いたらきれいにまとめます。
 余裕があれば、途中のpytonファイルをほぞ似ているのでアップします。
+
 
 PDBIDとchain番号を入力すると、1残基ずつタンパク質構造中のアミノ酸残基1文字表記と主鎖二面角φとψをcsv形式で出力するpythonスクリプトを作成してください。
 
@@ -72,6 +73,7 @@ if __name__ == "__main__":
 このスクリプトを実行すると、PDB IDとチェーンIDを入力するプロンプトが表示されます。入力すると、CSVファイルにアミノ酸残基の1文字表記と主鎖二面角φとψが出力されます。CSVファイルの名前は、PDBID_chainID_phi_psi.csvとなります。
 
 --
+
 Enter PDB ID: 5yhj
 Enter chain ID: B
 Structure exists: 'C:\Users\xxxxxxx\Desktop\yh\pdb5yhj.ent' 
@@ -150,7 +152,9 @@ if __name__ == "__main__":
 弧度法から度数法に変換して出力してください。
 
 --
+
 Pythonのmath.degrees()関数を使って、弧度法から度数法に変換できます。以下に、修正済みのスクリプトを示します。
+
 --
 
 import sys
@@ -211,6 +215,7 @@ if __name__ == "__main__":
         print(f"Error: {str(e)}")
         
 --
+
 この修正済みのスクリプトでは、math.degrees()を使って弧度法から度数法に変換し、CSVファイルに出力される角度が度数法で表示されます。
 
 --
@@ -310,7 +315,10 @@ res_name = residue.get_resname().upper()
 これらの変更を加えた後、再度スクリプトを実行して、問題が解決するかどうか確認してください。もしまだ問題が解決しない場合は、エラーメッセージを提供していただければ、問題の特定と解決策の提案ができるかもしれません。
 
 --
+
 pdbのファイル形式は問題が発生しませんでしたが、cifでは下記のようなエラーが出ました。改善策を教えてください。
+
+--
 
 Enter PDB ID: 5yhj
 Enter chain ID: B
@@ -330,6 +338,7 @@ Enter file format (pdb or cif): cif
 Error: MMCIFParser.__init__() got an unexpected keyword argument 'PERMISSIVE'
 
 --
+
 このエラーは、MMCIFParserの__init__()関数に、予期しないキーワード引数PERMISSIVEが渡されているために発生しています。PDBParserにはPERMISSIVEという引数がありますが、MMCIFParserには存在しないため、このエラーが発生しています。
 
 この問題を解決するには、MMCIFParserのインスタンス化時にPERMISSIVE引数を削除してください。以下に修正後のコードを示します。
@@ -398,6 +407,7 @@ if __name__ == "__main__":
         print(f"Phi-Psi angles written to {output_filename}")
     except Exception as e:
         print(f"Error: {str(e)}")
+
 --
 
 下記のようなエラーで止まってしまいました。改善策を教えてください。
@@ -480,6 +490,7 @@ if __name__ == "__main__":
         print(f"Error: {str(e)}")
  
 --
+
 この修正後のスクリプトでは、fetch_pdb()関数でfile_formatを"mmCIF"に変更しています。これで、PDBx/mmCIF形式のファイルを正
 
 --
@@ -493,6 +504,8 @@ Error: 'mmCIF'
 --
 
 すみませんが、このエラーメッセージだけでは問題の原因を特定するのが難しいです。しかし、一般的な問題に対処するために、以下の提案を試してください。
+
+--
 
 pdb_list.retrieve_pdb_file()を使って、ファイル形式がPDBかmmCIFかに関係なく、ファイルをダウンロードできるようにしてみましょう。具体的には、pdb_list.retrieve_pdb_file(pdb_id, pdir=".", file_format=file_format)の呼び出しをpdb_list.retrieve_pdb_file(pdb_id, pdir=".")に変更します。
 
@@ -562,6 +575,7 @@ if __name__ == "__main__":
 （※上限）
 
 --
+
 if __name__ == "__main__":以降を再度記述してください。
 
 --
@@ -584,13 +598,14 @@ if __name__ == "__main__":
         print(f"Error: {str(e)}")
         
 --
+
 この修正後のスクリプトでは、fetch_pdb()関数はPDB IDを引数にとり、ファイル形式に関係なくファイルをダウンロードします。その後、extract_phi_psi()関数はファイル名の拡張子を確認し、適切なパーサを使用して構造データを解析します。
 
 --
 
 ありがとうございました。ちなみにこの警告が発生しないような改善策はありますか？
 Warning (from warnings module):
-  File "C:\Users\mutya\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\Bio\PDB\Polypeptide.py", line 144
+  File "C:\Users\xxxxx\AppData\Local\Packages\PythonSoftwareFoundation.Python.3.10_qbz5n2kfra8p0\LocalCache\local-packages\Python310\site-packages\Bio\PDB\Polypeptide.py", line 144
     warnings.warn(
 BiopythonDeprecationWarning: 'three_to_one' will be deprecated in a future release of Biopython in favor of 'Bio.PDB.Polypeptide.protein_letters_3to1'.
 
@@ -937,6 +952,7 @@ def save_csv():
             f.write(csv_text.get("1.0", tk.END))
             
 --
+
 この変更により、Save CSVボタンを押すと、ファイルの種類がCSVに設定され、標準のファイル名がpdb_idとchain_idの組み合わせになります。
 
 --
@@ -1049,6 +1065,7 @@ def plot_scatter(phi_psi_data):
     return fig
     
 --
+
 次に、scatter_buttonを作成し、scatter_buttonが押されたときに散布図をTkinterウィンドウに表示する新しい関数show_scatterを作成します。
 
 --
@@ -1327,6 +1344,7 @@ def save_csv():
 ただし、この変更はオプションであり、現在のshow_scatter()関数の位置でもコードは正常に機能します。関数の順序を変更するかどうかは、コードの整理と可読性に関連する個人的な選択です。
 
 --
+
 （個人的な選択！？ちがうChatGPTさんのスレッドだと違う感覚がでたりするのだろうか）
 
 --
@@ -1338,6 +1356,7 @@ def save_csv():
 散布図を別のTkinterウィンドウに表示するには、新しいトップレベルウィンドウを作成し、その中にFigureCanvasTkAggウィジェットを配置します。以下のようにshow_scatter()関数を変更してください：
 
 --
+
 def show_scatter():
     phi_psi_data = extract_phi_psi(pdb_id_entry.get(), chain_id_entry.get(), fetch_pdb(pdb_id_entry.get()))
     fig = plot_scatter(phi_psi_data)
@@ -1397,23 +1416,12 @@ def plot_scatter(phi_psi_data):
     return fig
     
 --
+
 この変更により、散布図の背景にヒートマップが表示され、x軸とy軸の範囲が-180から180に設定されます。
 
---（3時間上限）
+--
+
+（3時間上限）
 
 ※180が表示されないのは間隔の問題、丸められていない、ヒートマップが表示できていない等の問題はあるが、聞き続けていたら解決してくれそうな気はする。今後に期待。
-
-
-
-
-
-
-
-
-
-
-
-
-
-
 

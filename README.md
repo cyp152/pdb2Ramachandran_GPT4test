@@ -1032,6 +1032,21 @@ def save_csv():
 
 ---
 
+<img width="862" alt="image" src="https://user-images.githubusercontent.com/87903303/226156583-e2477c25-090d-4c61-971e-7737d793872c.png">
+
+
+ファイル名をAnalyze前に指定したPDB IDとChain IDを使って、csvのデフォルトの名前を指定してくれました。
+
+ところが、GUIに変換した後からExcelでcsvを開くと一行余分に入力されていることが分かりました。
+
+<img width="582" alt="image" src="https://user-images.githubusercontent.com/87903303/226156736-7b9c6788-ae44-4080-9937-6968ba150871.png">
+
+原因は察しておりましたが、どこでその問題が発生しているか探す気すらなくなっていましたので、
+
+ChatGPTさんに雑に聞いてみました。
+
+---
+
 17. Excelで開くと行が飛んでしまいます。原因は何でしょうか。
 
 Residue	Residue_ID	Phi (degrees)	Psi (degrees)
@@ -1053,6 +1068,18 @@ Excelで開いたときに行が飛んでいる原因は、CSVデータに改行
 ```
 
 この変更により、CSVデータの改行コードが正しくなり、Excelで開いたときに行が飛ばなくなります。
+
+---
+
+<img width="260" alt="image" src="https://user-images.githubusercontent.com/87903303/226156915-536aefc1-445e-4195-9776-e69b7e6b281f.png">
+
+元通りになりました。ありがとうございます！
+
+ところで、小数点以下の桁数多すぎて読みにくいと思ます！
+
+せっかくラマチャンドラン表示したのだからプロットしてよ！
+
+助けて！GPえもーん。
 
 ---
 
@@ -1110,6 +1137,24 @@ def fetch_pdb():
 
 ---
 
+まず1個目の小数点2桁に丸めるところから
+
+<img width="260" alt="image" src="https://user-images.githubusercontent.com/87903303/226156915-536aefc1-445e-4195-9776-e69b7e6b281f.png"> → <img width="263" alt="image" src="https://user-images.githubusercontent.com/87903303/226157159-346c6c21-50c9-4ee3-8249-440b0d1ad5f4.png">
+
+あれ？変わってない？
+
+とりあえず、続きを記載するか。
+
+<img width="879" alt="image" src="https://user-images.githubusercontent.com/87903303/226157683-7a0a560f-874a-43ce-9a94-909c979be4be.png">
+
+ラマチャンドランプロットを表示するシステムがないから表示すらされない。
+
+質問回数を節約したいからと言って性質の異なるお願いを同時にするべきではないな。
+
+とりあえず、一旦明示的に表示できるようにボタンを作ることにしよう。
+
+---
+
 19. 散布図をTkinterウィンドウで表示するボタンをSAVE CSVの隣に作成することは可能ですか？
 
 ---
@@ -1148,6 +1193,18 @@ scatter_button.grid(row=2, column=2, padx=(0, 10), pady=10)
 ```
 
 これで、Tkinterウィンドウに'Show Scatter Plot'ボタンが表示され、ボタンを押すと散布図が表示されるようになります。散布図は、PDB形式の出力とCSV形式でφとψの角度を表示するテキストボックスの右側に表示されます。
+
+---
+
+<img width="883" alt="image" src="https://user-images.githubusercontent.com/87903303/226158171-f3f9235b-4e5c-4d80-8daa-63c0ba791039.png">
+
+ボタンを散布図が表示されないどころか、SAVE CSVボタンが消えてしまった。
+
+これは、私の作成しているスクリプトと、ChatGPTが思い描いているスクリプトに齟齬がありそう。
+
+ここまで私が書いている物を提示せずに、よくここまで指示を出せたと思う。
+
+ということで、現状を報告。ほうれん草はおいしい。
 
 ---
 
@@ -1382,6 +1439,10 @@ def show_scatter():
 
 ---
 
+すこし関数の依存関係が分からなくなってきたので確認の質問を挟むことにした。
+
+---
+
 21. def show_scatter():関数の位置はどこが良いでしょうか。
 
 ---
@@ -1409,7 +1470,28 @@ def save_csv():
 
 ---
 
-（個人的な選択！？ちがうChatGPTさんのスレッドだと違う感覚がでたりするのだろうか）
+個人的な選択！？ちがうChatGPTさんのスレッドだと違う感覚がでたりするのだろうか
+
+個人的な選択でいいのであれば、SAVE CSVボタンのあとにShow Scatter Plotボタンがあるので
+
+def save_csv()の後がいいと思うな。
+
+検証という目的を忘れて我を出し始めるのは悪い癖。
+
+<img width="989" alt="image" src="https://user-images.githubusercontent.com/87903303/226158578-3d1eda6c-46b0-4d13-98a6-0c8e6241e255.png">
+
+
+ボタンの位置気に入らないな。
+
+<img width="1275" alt="image" src="https://user-images.githubusercontent.com/87903303/226158606-3c1815eb-96a6-4d4a-a9e0-96eab4409562.png">
+
+Show Scatter Plotボタンが押したら消えるのも気に入らないな。
+
+さっきは
+
+「ただし、散布図をTkinterウィンドウ内に埋め込む方法がありますが、ここでは簡単のために別ウィンドウに表示しています。」
+
+と言っていたのだから、別ウィンドウで出してほしいと思うので、お願いしてみましょう。
 
 ---
 
@@ -1434,6 +1516,14 @@ def show_scatter():
 ```
 
 この変更により、Show Scatter Plotボタンをクリックすると、新しいウィンドウが開き、その中に散布図が表示されます。
+
+---
+
+<img width="986" alt="image" src="https://user-images.githubusercontent.com/87903303/226158913-f9a44621-05d6-4e32-b283-286f379dfd4f.png">
+
+ありがとうございます。軸がおかしい気がするので直したいです。
+
+特に用途はないですが、また欲張りなお願いでもしてみましょう。
 
 ---
 
@@ -1490,5 +1580,7 @@ def plot_scatter(phi_psi_data):
 
 に通ずる誤記も意図を汲んで-180から180と読み取ってくれた。
 
-※180が表示されないのは間隔の問題、丸められていない、ヒートマップが表示できていない等の問題はあるが、聞き続けていたら解決してくれそうな気はする。今後に期待。
+<img width="464" alt="image" src="https://user-images.githubusercontent.com/87903303/226159147-5ddd9c30-ab55-460b-88cc-464c108b29ff.png">
+
+なお、180が表示されない問題は解決していないのと、CSVの値も小数点2桁に丸められていない、ヒートマップが表示できていない等の問題はあったが、聞き続けていたら解決してくれそうな気はする。今後に期待。
 

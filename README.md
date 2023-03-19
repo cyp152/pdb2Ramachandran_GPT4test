@@ -148,6 +148,16 @@ if __name__ == "__main__":
 
 ---
 
+<img width="405" alt="image" src="https://user-images.githubusercontent.com/87903303/226153595-f12e366f-482b-4dd4-8f2b-5327278af6af.png">
+
+警告は出ておりますが、ペプチド二面角のφとψを5yhj_B_phi_psi.csvに書き出してくれたとのこと。
+
+<img width="246" alt="image" src="https://user-images.githubusercontent.com/87903303/226153638-7a289609-a3bf-4ba1-8bcc-226f56cb12c4.png">
+
+見慣れない値ですね。これはラジアン角で表記されているという事だと判断しました。
+
+---
+
 3. 弧度法から度数法に変換して出力してください。
 
 ---

@@ -741,6 +741,20 @@ if __name__ == "__main__":
 
 ---
 
+<img width="404" alt="image" src="https://user-images.githubusercontent.com/87903303/226155204-1e7f4032-5636-40d3-a2d0-d7756ed6b330.png">
+
+すべてChatGPT4さんの言う通りですね。ありがとうございます。
+
+そろそろCUIに飽きてきたので、GUIを作ってもらいましょう。
+
+ちなみにChatGPT3.5はやってくれませんでした。頼み方が雑だったかもしれませんが。
+
+<img width="348" alt="image" src="https://user-images.githubusercontent.com/87903303/226155273-e82d7f75-78d7-4af3-a7b0-166bdbc8a703.png">
+
+現実で、他の人が作ったスクリプトをこんな他の味方されたらやりたくなくなりますよね。
+
+---
+
 12. pdb_idとchain_idをテキストボックスで受け取り、下のテキストボックスにPDB形式の出力を表示し、右のテキストボックスにタンパク質構造中のアミノ酸残基の1文字表記と主鎖二面角φ(Phi)とψ(Psi)をCSV形式で表示するGUIを作成してください。
 
 ---
@@ -815,6 +829,25 @@ app.mainloop()
 ```
 
 このコードは、Tkinterを使用して、PDB IDとチェーンIDを入力できるテキストボックス、アナライズボタン、および2つのテキストボックス（1つはPDB形式の出力を表示し、もう1つはCSV形式でφとψの角度を表示）で構成されたGUIを作成します。アナライズボタンをクリックすると、以前に提
+
+---
+
+<img width="859" alt="image" src="https://user-images.githubusercontent.com/87903303/226155452-0732fcb9-a19b-4fa6-9233-70304aa537ac.png">
+
+
+最初のGUIはfetch_pdbが定義されていないと怒られました。これはChatGPT4が以前のコードを省略してしまっており、
+
+# ここに、以前に提供したfetch_pdb、extract_phi_psi、およびwrite_to_csv関数を含めます。
+
+と、出力の中に書いてあるので、さすがにこれは配慮してあげないといけないです。
+
+実際のissuesでも自明なことは毎回書かないですよね。
+
+なので、Q11で使ったライブラリと指定された関数をいい感じに入れます。
+
+<img width="845" alt="image" src="https://user-images.githubusercontent.com/87903303/226155606-86fb4c37-e532-4fa2-bb4b-8862f5431468.png">
+
+無事動きました。
 
 ---
 

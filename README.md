@@ -66,29 +66,29 @@ if __name__ == "__main__":
         write_to_csv(phi_psi_data, output_filename)
         print(f"Phi-Psi angles written to {output_filename}")
     except Exception as e:
-        print(f"Error: {str(e)}")
-        
+        print(f"Error: {str(e)}")   
 ```
 
 このスクリプトを実行すると、PDB IDとチェーンIDを入力するプロンプトが表示されます。入力すると、CSVファイルにアミノ酸残基の1文字表記と主鎖二面角φとψが出力されます。CSVファイルの名前は、PDBID_chainID_phi_psi.csvとなります。
 
 --
 
+2. このようなエラーが出ました。この問題を解決する改善策を教えてください。
 Enter PDB ID: 5yhj
 Enter chain ID: B
 Structure exists: 'C:\Users\xxxxxxx\Desktop\yh\pdb5yhj.ent' 
 Error: argument of type 'function' is not iterable
 
-このようなエラーが出ました。この問題を解決する改善策を教えてください。
 
 ---
 
 すみません、この問題は、if res_name in PDB.Polypeptide.three_to_one行に原因があります。PDB.Polypeptide.three_to_one は関数ですが、ここではリストやセットとして扱われています。これを修正するには、PDB.Polypeptide.three_to_one を PDB.Polypeptide.aa3 に置き換えて、アミノ酸名が有効かどうかを確認します。
 
-修正後のコードは以下のようになります。
-
 --
 
+修正後のコードは以下のようになります。
+
+```
 import sys
 import csv
 from Bio import PDB
@@ -142,21 +142,19 @@ if __name__ == "__main__":
         print(f"Phi-Psi angles written to {output_filename}")
     except Exception as e:
         print(f"Error: {str(e)}")
-        
---
+```
 
 これで、エラーが解決され、アミノ酸残基と主鎖二面角をCSVファイルに出力できるはずです。
 
 --
 
-弧度法から度数法に変換して出力してください。
+3. 弧度法から度数法に変換して出力してください。
 
 --
 
 Pythonのmath.degrees()関数を使って、弧度法から度数法に変換できます。以下に、修正済みのスクリプトを示します。
 
---
-
+```
 import sys
 import csv
 import math
@@ -213,21 +211,19 @@ if __name__ == "__main__":
         print(f"Phi-Psi angles written to {output_filename}")
     except Exception as e:
         print(f"Error: {str(e)}")
-        
---
+```
 
 この修正済みのスクリプトでは、math.degrees()を使って弧度法から度数法に変換し、CSVファイルに出力される角度が度数法で表示されます。
 
 --
 
-PDB形式とPDBx/mmCIF形式に対応させてください。
+4. PDB形式とPDBx/mmCIF形式に対応させてください。
 
 --
 
 BioPythonライブラリは、PDBx/mmCIF形式のファイルもサポートしています。以下のスクリプトは、PDB形式とPDBx/mmCIF形式の両方に対応しています。
 
---
-
+```
 import sys
 import csv
 import math
@@ -291,13 +287,13 @@ if __name__ == "__main__":
         print(f"Phi-Psi angles written to {output_filename}")
     except Exception as e:
         print(f"Error: {str(e)}")
---
+```
 
 この修正済みのスクリプトでは、ファイル形式（pdbまたはcif）も入力するようになっており、選択した形式のファイルをダウンロードして解析します。PDB形式とPDBx/mmCIF形式のどちらのファイルでも、アミノ酸残基と主
 
 --
 
-pdbのファイル形式は問題が発生しませんでしたが、cifでは下記のようなエラーが出ました。改善策を教えてください。
+5. pdbのファイル形式は問題が発生しませんでしたが、cifでは下記のようなエラーが出ました。改善策を教えてください。
 ※誤ってエラーを打ち込む前にエンターを押してしまいました。
 
 --
@@ -306,20 +302,23 @@ pdbのファイル形式は問題が発生しませんでしたが、cifでは�
 
 BioPythonの最新バージョンを使用していることを確認してください。バージョンが古い場合、最新バージョンにアップグレードしてください。以下のコマンドでアップグレードできます。
 
+```
 pip install --upgrade biopython
+```
 
 PDBx/mmCIF形式のファイルには、アミノ酸名が3文字ではなく、大文字の3文字表記になっている場合があります。これに対処するには、res_nameを大文字に変換することで、コードを修正します。
 
+```
 res_name = residue.get_resname().upper()
+```
 
 これらの変更を加えた後、再度スクリプトを実行して、問題が解決するかどうか確認してください。もしまだ問題が解決しない場合は、エラーメッセージを提供していただければ、問題の特定と解決策の提案ができるかもしれません。
 
 --
 
-pdbのファイル形式は問題が発生しませんでしたが、cifでは下記のようなエラーが出ました。改善策を教えてください。
+6. pdbのファイル形式は問題が発生しませんでしたが、cifでは下記のようなエラーが出ました。改善策を教えてください。
 
---
-
+```
 Enter PDB ID: 5yhj
 Enter chain ID: B
 Enter file format (pdb or cif): pdb
@@ -336,6 +335,7 @@ Enter PDB ID: 5yhj
 Enter chain ID: B
 Enter file format (pdb or cif): cif
 Error: MMCIFParser.__init__() got an unexpected keyword argument 'PERMISSIVE'
+```
 
 --
 
@@ -343,7 +343,7 @@ Error: MMCIFParser.__init__() got an unexpected keyword argument 'PERMISSIVE'
 
 この問題を解決するには、MMCIFParserのインスタンス化時にPERMISSIVE引数を削除してください。以下に修正後のコードを示します。
 
---
+```
 import sys
 import csv
 import math
@@ -407,10 +407,12 @@ if __name__ == "__main__":
         print(f"Phi-Psi angles written to {output_filename}")
     except Exception as e:
         print(f"Error: {str(e)}")
+```
+
 
 --
 
-下記のようなエラーで止まってしまいました。改善策を教えてください。
+7. 下記のようなエラーで止まってしまいました。改善策を教えてください。
 
 Enter PDB ID: 5yhj
 Enter chain ID: B
